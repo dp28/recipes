@@ -1,19 +1,13 @@
 import { Measurement } from './measurement';
+import { UnitMap } from './units';
 
-export interface ScaleOverrides {
-  [unit: string]: ScaleOverride;
+export function scale(measurement: Measurement, factor: number, unitMap: UnitMap = {}) {
+  const unit = unitMap[measurement.unit];
+  const scaled = measurement.value * factor;
+  const value = (unit && unit.minimumStep) ? ceilToNearest(scaled, unit.minimumStep) : scaled;
+  return { ...measurement, value };
 }
 
-export interface ScaleOverride {
-  scale?: (value: number, factor: number) => number
-}
-
-function multiply(value: number, factor: number): number {
-  return value * factor;
-}
-
-export function scale(measurement: Measurement, factor: number, overrides: ScaleOverrides = {}) {
-  const override = overrides[measurement.unit] || {};
-  const apply = override.scale || multiply;
-  return { ...measurement, value: apply(measurement.value, factor) };
+function ceilToNearest(number: number, minimumStep: number): number {
+  return Math.ceil(number / minimumStep) * minimumStep;
 }

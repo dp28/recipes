@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import 'mocha';
 
-import { scale, ScaleOverride, ScaleOverrides } from './scale';
+import { scale } from './scale';
 import { Measurement } from './measurement';
+import { Gram } from './units';
 
 describe(`scale`, () => {
-  const measurement = { value: 10, unit: 'g' };
+  const measurement = { value: 10, unit: Gram.symbol };
 
   function itShouldMultiplyTheValueByTheFactor(call: () => Measurement) {
     it(`should return a measurement with the value multiplied by the factor`, () => {
@@ -17,32 +18,46 @@ describe(`scale`, () => {
 
   it(`should not change the original measurement`, () => {
     scale(measurement, 20);
-    expect(measurement).to.deep.equal({ value: 10, unit: 'g' });
+    expect(measurement).to.deep.equal({ value: 10, unit: Gram.symbol });
   });
 
   it(`should not change the measurement's unit`, () => {
-    expect(scale(measurement, 20).unit).to.equal('g');
+    expect(scale(measurement, 20).unit).to.equal(Gram.symbol);
   });
 
-  context(`if there are unit overrides specified`, () => {
-    context(`but they do not have overrides for the provided unit`, () => {
+  context(`if there is a UnitMap provided`, () => {
+    context(`but it does not include the specified Unit`, () => {
       itShouldMultiplyTheValueByTheFactor(() => scale(measurement, 20, {}));
     });
 
-    context(`but the relevant override does not have a scale function`, () => {
-      itShouldMultiplyTheValueByTheFactor(() => scale(measurement, 20, { g: {} }));
+    context(`but the relevant Unit does not have a minimum step`, () => {
+      itShouldMultiplyTheValueByTheFactor(() => scale(measurement, 20, { [Gram.symbol]: Gram }));
     });
 
-    context(`and the relevant override does have a scale function`, () => {
+    context(`and the relevant override does have a minimum step`, () => {
+      const TripleGram = { ...Gram, minimumStep: 3 };
+      const unitMap = { [Gram.symbol]: TripleGram };
 
-      it(`should return a measurement with the value modified using the scale override`, () => {
-        const override: ScaleOverride = {
-          scale: (value: number, factor: number): number => value * factor * 2
-        };
+      context(`and the scaled value is divisible by the minimum step`, () => {
+        it(`should return a measurement with the value multiplied by the factor`, () => {
+          expect(scale(measurement, 3, unitMap).value).to.equal(30);
+        });
+      });
 
-        const overrides: ScaleOverrides = { g: override };
-        const scaledValue = scale(measurement, 20, overrides).value;
-        expect(scaledValue).to.deep.equal(400);
+      context(`and the scaled value is would be rounded down to the nearest minimum step`, () => {
+        it(`should return a measurement which is multiplied by the factor, rounded up to the
+          nearest step`, () => {
+          const scaledValue = scale(measurement, 4, unitMap).value;
+          expect(scaledValue).to.deep.equal(42);
+        });
+      });
+
+      context(`and the scaled value is would be rounded up to the nearest minimum step`, () => {
+        it(`should return a measurement which is multiplied by the factor, rounded up to the
+          nearest step`, () => {
+          const scaledValue = scale(measurement, 2, unitMap).value;
+          expect(scaledValue).to.deep.equal(21);
+        });
       });
     });
   });
