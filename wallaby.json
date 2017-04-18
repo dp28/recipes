@@ -1,0 +1,12 @@
+{
+  "env": {
+    "type": "node"
+  },
+  "files": [
+    "src/**/*.ts",
+    "!src/**/*.spec.ts"
+  ],
+  "tests": [
+    "src/**/*.spec.ts"
+  ]
+}
