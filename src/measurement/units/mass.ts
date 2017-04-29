@@ -1,6 +1,6 @@
 import { Unit, UnitRef } from './unit';
 import { Quantity } from '../quantity';
-import { buildMeasurement, Measurement } from '../measurement';
+import { buildMeasurementCurried, Measurement } from '../measurement';
 
 export const Gram = buildMassUnit(`g`, `gram`);
 export const Kilogram = buildMassUnit(`kg`, `kilogram`);
@@ -25,8 +25,4 @@ function buildMassUnit(symbol: string, name: string): Unit {
       plural: `${name}s`
     }
   }
-}
-
-function buildMeasurementCurried(unitRef: UnitRef): (_: number) => Measurement {
-  return value => buildMeasurement(unitRef, value);
 }

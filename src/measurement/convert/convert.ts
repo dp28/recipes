@@ -18,6 +18,14 @@ type ConversionMap = {
   }
 }
 
+export function conversionRatio(ratioToOne: number, to: UnitRef, from: UnitRef): Conversion {
+  return {
+    from: toUnitSymbol(from),
+    to: toUnitSymbol(to),
+    changes: [{ type: 'multiply', value: ratioToOne }]
+  };
+}
+
 export function convert(conversions: Conversion[]): (m: Measurement, u: UnitRef) => Measurement {
   const map = buildConversionMap(conversions);
   return (measurement, unit) => convertUsingMap(map, measurement, unit);
@@ -43,7 +51,8 @@ function fetchConversion(map: ConversionMap, { unit }: Measurement, otherUnit: s
 
 function convertValue({ changes }: Conversion, value: number): number {
   const newValue = changes.reduce(applyChange, value);
-  return roundToPrecision(newValue, 7);
+  const rounded = roundToPrecision(newValue, 7);
+  return removeNegativeZero(rounded);
 }
 
 function applyChange(value: number, change: ConversionChange): number {
@@ -64,11 +73,10 @@ function insertMissingConversions(map: ConversionMap, conversion: Conversion): v
   const missed = findMissingConversions(map, conversion);
   insertConversions(map, missed);
   const missedInverted = findMissingConversions(map, invert(conversion));
-  insertConversions(map, missedInverted);;
+  insertConversions(map, missedInverted);
   const allMissed = [ ...missed, ...missedInverted ];
-  if (allMissed.length === 0)
-    return
-  allMissed.forEach(missedConversion => insertMissingConversions(map, missedConversion));
+  if (allMissed.length > 0)
+    allMissed.forEach(missedConversion => addConversion(map, missedConversion));
 }
 
 function insertConversions(map: ConversionMap, conversions: Conversion[]): void {
@@ -117,4 +125,8 @@ function merge(conversion: Conversion, other: Conversion): Conversion {
 function roundToPrecision(value: number, precision: number): number {
   const multiplier = Math.pow(10, precision);
   return Math.round(value * multiplier) / multiplier;
+}
+
+function removeNegativeZero(value: number): number {
+  return value === 0 ? 0 : value;
 }
