@@ -24,6 +24,6 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prepublishOnly": "npm run compile",
     "test": "mocha --opts mocha.opts",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "TS_NODE_IGNORE_WARNINGS=TRUE npm test -- --watch"
   }
 }
