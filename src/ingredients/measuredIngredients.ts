@@ -1,0 +1,32 @@
+import { Measurement } from '../measurement';
+
+import { MeasuredIngredient } from './ingredient';
+
+export interface IngredientList extends Array<MeasuredIngredient> {}
+
+export interface IngredientMap {
+  [substance: string]: MeasuredIngredient;
+}
+
+export type Ingredients = IngredientList | IngredientMap;
+
+export function toIngredientMap(ingredients: Ingredients): IngredientMap {
+  if (isIngredientList(ingredients)) {
+    return buildIngredientMap(ingredients);
+  } else {
+    return ingredients;
+  }
+}
+
+export function addIngredient(map: IngredientMap, ingredient: MeasuredIngredient): IngredientMap {
+  map[ingredient.substance] = ingredient;
+  return map;
+}
+
+function isIngredientList(ingredients: Ingredients): ingredients is IngredientList {
+  return ingredients instanceof Array;
+}
+
+export function buildIngredientMap(ingredients: Array<MeasuredIngredient>): IngredientMap {
+  return ingredients.reduce(addIngredient, {});
+}
