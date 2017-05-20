@@ -2,7 +2,7 @@ import { Measurement } from '../measurement';
 
 import { MeasuredIngredient } from './ingredient';
 
-export interface IngredientList extends Array<MeasuredIngredient> {}
+export type IngredientList = Array<MeasuredIngredient>;
 
 export interface IngredientMap {
   [substance: string]: MeasuredIngredient;
