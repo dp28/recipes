@@ -10,6 +10,12 @@ export const celsius = buildMeasurementCurried(Celsius);
 export const fahrenheit = buildMeasurementCurried(Fahrenheit);
 export const kelvin = buildMeasurementCurried(Kelvin);
 
+export const TemperatureUnits = [
+  Celsius,
+  Fahrenheit,
+  Kelvin,
+];
+
 function buildTemperatureUnit(symbol: string, name: string): Unit {
   return {
     symbol,

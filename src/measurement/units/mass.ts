@@ -16,6 +16,14 @@ export const milligrams = buildMeasurementCurried(Milligram);
 export const ounces = buildMeasurementCurried(Ounce);
 export const pounds = buildMeasurementCurried(Pound);
 
+export const MassUnits = [
+  Kilogram,
+  Milligram,
+  Gram,
+  Ounce,
+  Pound,
+];
+
 function buildMassUnit(symbol: string, name: string): Unit {
   return {
     symbol,

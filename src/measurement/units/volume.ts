@@ -33,6 +33,22 @@ export const usCups = buildMeasurementCurried(USCup);
 export const usPints = buildMeasurementCurried(USPint);
 export const usGallons = buildMeasurementCurried(USGallon);
 
+export const VolumeUnits = [
+  Millilitre,
+  Litre,
+  ImperialTeaspoon,
+  ImperialTablespoon,
+  ImperialFluidOunce,
+  ImperialPint,
+  ImperialGallon,
+  USTeaspoon,
+  USTablespoon,
+  USFluidOunce,
+  USCup,
+  USPint,
+  USGallon,
+];
+
 function buildVolumeUnit(symbol: string, name: string): Unit {
   return {
     symbol,
