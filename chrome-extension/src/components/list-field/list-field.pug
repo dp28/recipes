@@ -1,0 +1,9 @@
+if editing
+  p
+    | Move the mouse to highlight the list to select, then click when it surrounds all the
+    |  items in the #{field.name} of the recipe.
+
+else if value
+  ol
+    for item in value
+      li= item
