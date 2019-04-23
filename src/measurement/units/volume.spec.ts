@@ -1,7 +1,7 @@
-import { expect } from 'chai';
-import 'mocha';
+import { expect } from "chai";
+import "mocha";
 
-import { Measurement } from '../measurement';
+import { Measurement } from "../measurement";
 import {
   millilitres,
   litres,
@@ -15,8 +15,8 @@ import {
   fluidOunces,
   cups,
   pints,
-  gallons,
-} from './volume';
+  gallons
+} from "./volume";
 
 const measurementBuilders: { [unit: string]: (_: number) => Measurement } = {
   millilitres,
@@ -31,24 +31,24 @@ const measurementBuilders: { [unit: string]: (_: number) => Measurement } = {
   fluidOunces,
   cups,
   pints,
-  gallons,
-}
+  gallons
+};
 
 const unitsToNames: { [unit: string]: string } = {
-  ml: 'millilitres',
-  L: 'litres',
-  'tsp (UK)': 'ukTeaspoons',
-  'tbsp (UK)': 'ukTablespoons',
-  'fl oz (UK)': 'ukFluidOunces',
-  'pt (UK)': 'ukPints',
-  'gal (UK)': 'ukGallons',
-  'tsp': 'teaspoons',
-  'tbsp': 'tablespoons',
-  'cp': 'cups',
-  'fl oz': 'fluidOunces',
-  'pt': 'pints',
-  'gal': 'gallons',
-}
+  ml: "millilitres",
+  L: "litres",
+  "tsp (UK)": "ukTeaspoons",
+  "tbsp (UK)": "ukTablespoons",
+  "fl oz (UK)": "ukFluidOunces",
+  "pt (UK)": "ukPints",
+  "gal (UK)": "ukGallons",
+  tsp: "teaspoons",
+  tbsp: "tablespoons",
+  cp: "cups",
+  "fl oz": "fluidOunces",
+  pt: "pints",
+  gal: "gallons"
+};
 
 Object.keys(unitsToNames).forEach(unit => {
   const name = unitsToNames[unit];

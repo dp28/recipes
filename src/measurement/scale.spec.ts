@@ -1,9 +1,9 @@
-import { expect } from 'chai';
-import 'mocha';
+import { expect } from "chai";
+import "mocha";
 
-import { scale } from './scale';
-import { Measurement } from './measurement';
-import { Gram } from './units';
+import { scale } from "./scale";
+import { Measurement } from "./measurement";
+import { Gram } from "./units";
 
 describe(`scale`, () => {
   const measurement = { value: 10, unit: Gram.symbol };
@@ -12,7 +12,7 @@ describe(`scale`, () => {
     it(`should return a measurement with the value multiplied by the factor`, () => {
       expect(call().value).to.equal(200);
     });
-  };
+  }
 
   itShouldMultiplyTheValueByTheFactor(() => scale(measurement, 20));
 
@@ -31,7 +31,9 @@ describe(`scale`, () => {
     });
 
     context(`but the relevant Unit does not have a minimum step`, () => {
-      itShouldMultiplyTheValueByTheFactor(() => scale(measurement, 20, { [Gram.symbol]: Gram }));
+      itShouldMultiplyTheValueByTheFactor(() =>
+        scale(measurement, 20, { [Gram.symbol]: Gram })
+      );
     });
 
     context(`and the relevant override does have a minimum step`, () => {
@@ -44,21 +46,27 @@ describe(`scale`, () => {
         });
       });
 
-      context(`and the scaled value is would be rounded down to the nearest minimum step`, () => {
-        it(`should return a measurement which is multiplied by the factor, rounded up to the
+      context(
+        `and the scaled value is would be rounded down to the nearest minimum step`,
+        () => {
+          it(`should return a measurement which is multiplied by the factor, rounded up to the
           nearest step`, () => {
-          const scaledValue = scale(measurement, 4, unitMap).value;
-          expect(scaledValue).to.deep.equal(42);
-        });
-      });
+            const scaledValue = scale(measurement, 4, unitMap).value;
+            expect(scaledValue).to.deep.equal(42);
+          });
+        }
+      );
 
-      context(`and the scaled value is would be rounded up to the nearest minimum step`, () => {
-        it(`should return a measurement which is multiplied by the factor, rounded up to the
+      context(
+        `and the scaled value is would be rounded up to the nearest minimum step`,
+        () => {
+          it(`should return a measurement which is multiplied by the factor, rounded up to the
           nearest step`, () => {
-          const scaledValue = scale(measurement, 2, unitMap).value;
-          expect(scaledValue).to.deep.equal(21);
-        });
-      });
+            const scaledValue = scale(measurement, 2, unitMap).value;
+            expect(scaledValue).to.deep.equal(21);
+          });
+        }
+      );
     });
   });
 });

@@ -1,6 +1,6 @@
-import { Unit, UnitRef } from './unit';
-import { Quantity } from '../quantity';
-import { buildMeasurementCurried, Measurement } from '../measurement';
+import { Unit, UnitRef } from "./unit";
+import { Quantity } from "../quantity";
+import { buildMeasurementCurried, Measurement } from "../measurement";
 
 export const Celsius = buildTemperatureUnit(`C`, `Celsius`);
 export const Fahrenheit = buildTemperatureUnit(`F`, `Fahrenheit`);
@@ -18,5 +18,5 @@ function buildTemperatureUnit(symbol: string, name: string): Unit {
       singular: `degree ${name}`,
       plural: `degrees ${name}`
     }
-  }
+  };
 }

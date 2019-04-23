@@ -1,4 +1,4 @@
-import { Quantity } from '../quantity';
+import { Quantity } from "../quantity";
 
 export interface Unit {
   symbol: string;
@@ -17,10 +17,9 @@ export interface UnitMap {
 }
 
 export function toUnitSymbol(unitRef: UnitRef): string {
-  if (typeof unitRef === 'string') {
+  if (typeof unitRef === "string") {
     return unitRef;
-  }
-  else {
+  } else {
     return unitRef.symbol;
   }
 }

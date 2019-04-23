@@ -1,18 +1,16 @@
-import { expect } from 'chai';
-import 'mocha';
+import { expect } from "chai";
+import "mocha";
 
-import { convert } from './index';
+import { convert } from "./index";
 import {
   grams,
   ounces,
   pounds,
   kilograms,
   milligrams,
-
   celsius,
   fahrenheit,
   kelvin,
-
   millilitres,
   litres,
   ukTeaspoons,
@@ -25,10 +23,10 @@ import {
   fluidOunces,
   cups,
   pints,
-  gallons,
-} from '../units';
+  gallons
+} from "../units";
 
-describe('convert', () => {
+describe("convert", () => {
   [
     [grams(1000), kilograms(1)],
     [kilograms(2.5), grams(2500)],
@@ -63,15 +61,17 @@ describe('convert', () => {
     [pints(1), millilitres(473.176)],
     [pints(1), ukPints(0.832674)],
     [gallons(1), millilitres(3785.41)],
-    [ukGallons(1), millilitres(4546.09)],
+    [ukGallons(1), millilitres(4546.09)]
   ].forEach(([measure, expected]) => {
-    it(`should convert ${measure.value}${measure.unit} to ` +
-      `${expected.value}${expected.unit}`, () => {
-      const converted = convert(measure, expected.unit);
-      expect(
-        equalToSixSignificantFigures(converted.value, expected.value)
-      ).to.be.true;
-    });
+    it(
+      `should convert ${measure.value}${measure.unit} to ` +
+        `${expected.value}${expected.unit}`,
+      () => {
+        const converted = convert(measure, expected.unit);
+        expect(equalToSixSignificantFigures(converted.value, expected.value)).to
+          .be.true;
+      }
+    );
   });
 });
 

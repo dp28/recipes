@@ -1,6 +1,6 @@
-import { Unit, UnitRef } from './unit';
-import { Quantity } from '../quantity';
-import { buildMeasurementCurried, Measurement } from '../measurement';
+import { Unit } from "./unit";
+import { Quantity } from "../quantity";
+import { buildMeasurementCurried } from "../measurement";
 
 export const Millilitre = buildVolumeUnit(`ml`, `Millilitre`);
 export const millilitres = buildMeasurementCurried(Millilitre);
@@ -41,5 +41,5 @@ function buildVolumeUnit(symbol: string, name: string): Unit {
       singular: `${name}`,
       plural: `${name}s`
     }
-  }
+  };
 }

@@ -11,10 +11,10 @@ import {
   FluidOunce,
   Cup,
   Pint,
-  Gallon,
-} from '../units';
+  Gallon
+} from "../units";
 
-import { conversionRatio, Conversion } from './convert';
+import { conversionRatio, Conversion } from "./convert";
 
 export const conversions: Conversion[] = [
   conversionRatio(1000, Millilitre, Litre),

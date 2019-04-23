@@ -1,3 +1,3 @@
-export * from './ingredient';
-export * from './measuredIngredients';
-export * from './scaleIngredients';
+export * from "./ingredient";
+export * from "./measuredIngredients";
+export * from "./scaleIngredients";

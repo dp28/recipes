@@ -1,6 +1,4 @@
-import { Measurement } from '../measurement';
-
-import { MeasuredIngredient } from './ingredient';
+import { MeasuredIngredient } from "./ingredient";
 
 export type IngredientList = Array<MeasuredIngredient>;
 
@@ -18,15 +16,22 @@ export function toIngredientMap(ingredients: Ingredients): IngredientMap {
   }
 }
 
-export function addIngredient(map: IngredientMap, ingredient: MeasuredIngredient): IngredientMap {
+export function addIngredient(
+  map: IngredientMap,
+  ingredient: MeasuredIngredient
+): IngredientMap {
   map[ingredient.substance] = ingredient;
   return map;
 }
 
-function isIngredientList(ingredients: Ingredients): ingredients is IngredientList {
+function isIngredientList(
+  ingredients: Ingredients
+): ingredients is IngredientList {
   return ingredients instanceof Array;
 }
 
-export function buildIngredientMap(ingredients: Array<MeasuredIngredient>): IngredientMap {
+export function buildIngredientMap(
+  ingredients: Array<MeasuredIngredient>
+): IngredientMap {
   return ingredients.reduce(addIngredient, {});
 }

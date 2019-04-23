@@ -1,12 +1,12 @@
-import { stringEnum } from '../utils/stringEnum';
+import { stringEnum } from "../utils/stringEnum";
 
 export const Quantity = stringEnum([
-  'Length',
-  'Mass',
-  'Time',
-  'Temperature',
-  'Volume',
-  'Integer'
-])
+  "Length",
+  "Mass",
+  "Time",
+  "Temperature",
+  "Volume",
+  "Integer"
+]);
 
 export type Quantity = keyof typeof Quantity;

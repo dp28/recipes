@@ -1,7 +1,7 @@
-import { expect } from 'chai';
-import 'mocha';
+import { expect } from "chai";
+import "mocha";
 
-import { grams, ounces, pounds, kilograms, milligrams } from './mass';
+import { grams, ounces, pounds, kilograms, milligrams } from "./mass";
 
 describe(`grams`, () => {
   it(`should build Measurements with 'g' units`, () => {

@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import 'mocha';
+import { expect } from "chai";
+import "mocha";
 
-import { toUnitSymbol } from './unit';
-import { Gram } from './mass';
+import { toUnitSymbol } from "./unit";
+import { Gram } from "./mass";
 
 describe(`toUnitSymbol`, () => {
   context(`when given a string`, () => {
