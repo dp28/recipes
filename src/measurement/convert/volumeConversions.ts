@@ -1,17 +1,17 @@
 import {
   Millilitre,
   Litre,
-  ImperialTeaspoon,
-  ImperialTablespoon,
-  ImperialFluidOunce,
-  ImperialPint,
-  ImperialGallon,
-  USTeaspoon,
-  USTablespoon,
-  USFluidOunce,
-  USCup,
-  USPint,
-  USGallon,
+  UKTeaspoon,
+  UKTablespoon,
+  UKFluidOunce,
+  UKPint,
+  UKGallon,
+  Teaspoon,
+  Tablespoon,
+  FluidOunce,
+  Cup,
+  Pint,
+  Gallon,
 } from '../units';
 
 import { conversionRatio, Conversion } from './convert';
@@ -19,17 +19,17 @@ import { conversionRatio, Conversion } from './convert';
 export const conversions: Conversion[] = [
   conversionRatio(1000, Millilitre, Litre),
 
-  conversionRatio(8, ImperialPint, ImperialGallon),
-  conversionRatio(20, ImperialFluidOunce, ImperialPint),
-  conversionRatio(1.6, ImperialTablespoon, ImperialFluidOunce),
-  conversionRatio(3, ImperialTeaspoon, ImperialTablespoon),
+  conversionRatio(8, UKPint, UKGallon),
+  conversionRatio(20, UKFluidOunce, UKPint),
+  conversionRatio(1.6, UKTablespoon, UKFluidOunce),
+  conversionRatio(3, UKTeaspoon, UKTablespoon),
 
-  conversionRatio(8, USPint, USGallon),
-  conversionRatio(16, USFluidOunce, USPint),
-  conversionRatio(8, USFluidOunce, USCup),
-  conversionRatio(2, USTablespoon, USFluidOunce),
-  conversionRatio(3, USTeaspoon, USTablespoon),
+  conversionRatio(8, Pint, Gallon),
+  conversionRatio(16, FluidOunce, Pint),
+  conversionRatio(8, FluidOunce, Cup),
+  conversionRatio(2, Tablespoon, FluidOunce),
+  conversionRatio(3, Teaspoon, Tablespoon),
 
-  conversionRatio(1.014420681 / 30, USFluidOunce, Millilitre),
-  conversionRatio(1.014420681 / 1.055852392, USFluidOunce, ImperialFluidOunce)
+  conversionRatio(1.014420681 / 30, FluidOunce, Millilitre),
+  conversionRatio(1.014420681 / 1.055852392, FluidOunce, UKFluidOunce)
 ];

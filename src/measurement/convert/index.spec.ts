@@ -15,17 +15,17 @@ import {
 
   millilitres,
   litres,
-  imperialTeaspoons,
-  imperialTablespoons,
-  imperialFluidOunces,
-  imperialPints,
-  imperialGallons,
-  usTeaspoons,
-  usTablespoons,
-  usFluidOunces,
-  usCups,
-  usPints,
-  usGallons,
+  ukTeaspoons,
+  ukTablespoons,
+  ukFluidOunces,
+  ukPints,
+  ukGallons,
+  teaspoons,
+  tablespoons,
+  fluidOunces,
+  cups,
+  pints,
+  gallons,
 } from '../units';
 
 describe('convert', () => {
@@ -48,22 +48,22 @@ describe('convert', () => {
 
     [litres(1), millilitres(1000)],
 
-    [imperialPints(8), imperialGallons(1)],
-    [imperialFluidOunces(160), imperialGallons(1)],
-    [imperialFluidOunces(20), imperialPints(1)],
-    [imperialFluidOunces(0.625), imperialTablespoons(1)],
-    [imperialTeaspoons(3), imperialTablespoons(1)],
+    [ukPints(8), ukGallons(1)],
+    [ukFluidOunces(160), ukGallons(1)],
+    [ukFluidOunces(20), ukPints(1)],
+    [ukFluidOunces(0.625), ukTablespoons(1)],
+    [ukTeaspoons(3), ukTablespoons(1)],
 
-    [usPints(8), usGallons(1)],
-    [usCups(2), usPints(1)],
-    [usFluidOunces(8), usCups(1)],
-    [usFluidOunces(0.5), usTablespoons(1)],
-    [usTeaspoons(3), usTablespoons(1)],
+    [pints(8), gallons(1)],
+    [cups(2), pints(1)],
+    [fluidOunces(8), cups(1)],
+    [fluidOunces(0.5), tablespoons(1)],
+    [teaspoons(3), tablespoons(1)],
 
-    [usPints(1), millilitres(473.176)],
-    [usPints(1), imperialPints(0.832674)],
-    [usGallons(1), millilitres(3785.41)],
-    [imperialGallons(1), millilitres(4546.09)],
+    [pints(1), millilitres(473.176)],
+    [pints(1), ukPints(0.832674)],
+    [gallons(1), millilitres(3785.41)],
+    [ukGallons(1), millilitres(4546.09)],
   ].forEach(([measure, expected]) => {
     it(`should convert ${measure.value}${measure.unit} to ` +
       `${expected.value}${expected.unit}`, () => {

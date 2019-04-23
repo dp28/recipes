@@ -7,31 +7,31 @@ export const millilitres = buildMeasurementCurried(Millilitre);
 export const Litre = buildVolumeUnit(`L`, `Litre`);
 export const litres = buildMeasurementCurried(Litre);
 
-export const ImperialTeaspoon = buildVolumeUnit(`tsp (imperial)`, `Imperial Teaspoon`);
-export const ImperialTablespoon = buildVolumeUnit(`tbsp (imperial)`, `Imperial Tablespoon`);
-export const ImperialFluidOunce = buildVolumeUnit(`fl oz (imperial)`, `Imperial Fluid Ounce`);
-export const ImperialPint = buildVolumeUnit(`pt (imperial)`, `Imperial Pint`);
-export const ImperialGallon = buildVolumeUnit(`gal (imperial)`, `Imperial Gallon`);
+export const UKTeaspoon = buildVolumeUnit(`tsp (UK)`, `UK Teaspoon`);
+export const UKTablespoon = buildVolumeUnit(`tbsp (UK)`, `UK Tablespoon`);
+export const UKFluidOunce = buildVolumeUnit(`fl oz (UK)`, `UK Fluid Ounce`);
+export const UKPint = buildVolumeUnit(`pt (UK)`, `UK Pint`);
+export const UKGallon = buildVolumeUnit(`gal (UK)`, `UK Gallon`);
 
-export const imperialTeaspoons = buildMeasurementCurried(ImperialTeaspoon);
-export const imperialTablespoons = buildMeasurementCurried(ImperialTablespoon);
-export const imperialFluidOunces = buildMeasurementCurried(ImperialFluidOunce);
-export const imperialPints = buildMeasurementCurried(ImperialPint);
-export const imperialGallons = buildMeasurementCurried(ImperialGallon);
+export const ukTeaspoons = buildMeasurementCurried(UKTeaspoon);
+export const ukTablespoons = buildMeasurementCurried(UKTablespoon);
+export const ukFluidOunces = buildMeasurementCurried(UKFluidOunce);
+export const ukPints = buildMeasurementCurried(UKPint);
+export const ukGallons = buildMeasurementCurried(UKGallon);
 
-export const USTeaspoon = buildVolumeUnit(`tsp (US)`, `US Teaspoon`);
-export const USTablespoon = buildVolumeUnit(`tbsp (US)`, `US Tablespoon`);
-export const USFluidOunce = buildVolumeUnit(`fl oz (US)`, `US Fluid Ounce`);
-export const USCup = buildVolumeUnit(`cp (US)`, `US Cup`);
-export const USPint = buildVolumeUnit(`pt (US)`, `US Pint`);
-export const USGallon = buildVolumeUnit(`gal (US)`, `US Gallon`);
+export const Teaspoon = buildVolumeUnit(`tsp`, `Teaspoon`);
+export const Tablespoon = buildVolumeUnit(`tbsp`, `Tablespoon`);
+export const FluidOunce = buildVolumeUnit(`fl oz`, `Fluid Ounce`);
+export const Cup = buildVolumeUnit(`cp`, `Cup`);
+export const Pint = buildVolumeUnit(`pt`, `Pint`);
+export const Gallon = buildVolumeUnit(`gal`, `Gallon`);
 
-export const usTeaspoons = buildMeasurementCurried(USTeaspoon);
-export const usTablespoons = buildMeasurementCurried(USTablespoon);
-export const usFluidOunces = buildMeasurementCurried(USFluidOunce);
-export const usCups = buildMeasurementCurried(USCup);
-export const usPints = buildMeasurementCurried(USPint);
-export const usGallons = buildMeasurementCurried(USGallon);
+export const teaspoons = buildMeasurementCurried(Teaspoon);
+export const tablespoons = buildMeasurementCurried(Tablespoon);
+export const fluidOunces = buildMeasurementCurried(FluidOunce);
+export const cups = buildMeasurementCurried(Cup);
+export const pints = buildMeasurementCurried(Pint);
+export const gallons = buildMeasurementCurried(Gallon);
 
 function buildVolumeUnit(symbol: string, name: string): Unit {
   return {
