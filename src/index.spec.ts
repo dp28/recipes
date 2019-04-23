@@ -1,46 +1,29 @@
 import { expect } from "chai";
 import "mocha";
-import { parseIngredients, ParsedIngredient } from "./parser/ingredientParser";
+import { parseIngredients } from "./parser/ingredientParser";
 import {
   buildMeasuredIngredient,
-  scaleIngredientsByIngredient,
-  MeasuredIngredient
+  scaleIngredientsByIngredient
 } from "./ingredients";
-import { ounces, cups, grams } from "./measurement/units";
+import { Pound, pounds, Cup } from "./measurement/units";
+import { convertRelevantIngredients } from "./ingredients/convertIngredients";
 
-describe("parsing and scaling", () => {
+describe("parsing, converting, and scaling", () => {
   it("should all work together", () => {
-    const raw = ["1 cup milk", "2oz of flour", "50g sugar"];
+    const raw = ["1 cup milk", "4oz of flour", "908g sugar"];
     const ingredients = parseIngredients(raw);
+    const converted = convertRelevantIngredients(Pound, ingredients);
     const scaled = scaleIngredientsByIngredient(
-      buildMeasuredIngredient("flour", ounces(4)),
-      ingredients
+      buildMeasuredIngredient("flour", pounds(1)),
+      converted
     );
-    const ordered = Object.values(scaled)
-      .map(withoutOriginal)
-      .sort(substanceComparator);
-    expect(ordered).to.eql([
-      buildMeasuredIngredient("flour", ounces(4)),
-      buildMeasuredIngredient("milk", cups(2)),
-      buildMeasuredIngredient("sugar", grams(100))
-    ]);
+    expect(scaled.flour.measurement.unit).to.equal(Pound.symbol);
+    expect(Math.round(scaled.flour.measurement.value)).to.equal(1);
+
+    expect(scaled.milk.measurement.unit).to.equal(Cup.symbol);
+    expect(Math.round(scaled.milk.measurement.value)).to.equal(4);
+
+    expect(scaled.sugar.measurement.unit).to.equal(Pound.symbol);
+    expect(Math.round(scaled.sugar.measurement.value)).to.equal(8);
   });
 });
-
-function withoutOriginal({
-  substance,
-  measurement
-}: ParsedIngredient): MeasuredIngredient {
-  return { substance, measurement };
-}
-
-function substanceComparator(
-  a: MeasuredIngredient,
-  b: MeasuredIngredient
-): number {
-  if (a.substance < b.substance) {
-    return -1;
-  } else {
-    return a.substance == b.substance ? 0 : +1;
-  }
-}

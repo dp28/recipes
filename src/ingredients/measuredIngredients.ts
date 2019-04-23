@@ -30,6 +30,12 @@ function isIngredientList(
   return ingredients instanceof Array;
 }
 
+export function toIngredientList(ingredients: Ingredients): IngredientList {
+  return isIngredientList(ingredients)
+    ? ingredients
+    : Object.values(ingredients);
+}
+
 export function buildIngredientMap(
   ingredients: Array<MeasuredIngredient>
 ): IngredientMap {
