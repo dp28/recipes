@@ -1,8 +1,9 @@
 import { expect } from "chai";
 import "mocha";
 
-import { parseIngredient } from "./ingredientParser";
-import { Gram, Litre, Cup } from "../measurement/units";
+import { parseIngredient, parseIngredients } from "./ingredientParser";
+import { Gram, Litre, Cup, grams } from "../measurement/units";
+import { buildMeasuredIngredient } from "../ingredients";
 
 describe("parseIngredient", () => {
   context("if the ingredient is null", () => {
@@ -62,6 +63,39 @@ describe("parseIngredient", () => {
       it('should not include "of" in the substance', () => {
         expect(parseIngredient("2 cups of milk").substance).to.equal("milk");
       });
+    });
+  });
+});
+
+describe("parseIngredients", () => {
+  describe("with an empty array", () => {
+    it("should return an empty array", () => {
+      expect(parseIngredients([])).to.eql([]);
+    });
+  });
+
+  describe("with an array with a single valid string", () => {
+    it("should return an array with the string parsed into an Ingredient", () => {
+      expect(parseIngredients(["20g cheese"])).to.eql([
+        {
+          original: "20g cheese",
+          ...buildMeasuredIngredient("cheese", grams(20))
+        }
+      ]);
+    });
+  });
+
+  describe("with an array with a valid string and an invalid", () => {
+    it("should return an array with the valid string parsed and the invalid parsed as null, in order", () => {
+      expect(
+        parseIngredients(["something unintelligible", "20g cheese"])
+      ).to.eql([
+        null,
+        {
+          original: "20g cheese",
+          ...buildMeasuredIngredient("cheese", grams(20))
+        }
+      ]);
     });
   });
 });

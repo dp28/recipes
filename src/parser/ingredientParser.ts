@@ -65,3 +65,9 @@ export function parseIngredient(original: string): ParsedIngredient {
     ...buildMeasuredIngredient(matches[4].trim(), measurement)
   };
 }
+
+export function parseIngredients(
+  originals: Array<string>
+): Array<ParsedIngredient> {
+  return originals.map(parseIngredient);
+}
