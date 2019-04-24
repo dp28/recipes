@@ -1,0 +1,21 @@
+service: recipe-graphql
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  graphql:
+    handler: src/index.graphqlHandler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+  playground:
+    handler: src/index.playgroundHandler
+    events:
+      - http:
+          path: playground
+          method: get
+          cors: true
