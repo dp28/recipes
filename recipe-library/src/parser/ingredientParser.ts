@@ -58,6 +58,9 @@ export function parseIngredient(original: string): ParsedIngredient {
     return null;
   }
   const unit = unitMap[matches[2].toLowerCase()];
+  if (!unit) {
+    return null;
+  }
   const value = Number(matches[1]);
   const measurement = buildMeasurement(unit, value);
   return {

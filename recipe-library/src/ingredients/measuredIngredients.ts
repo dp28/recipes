@@ -33,7 +33,7 @@ function isIngredientList(
 export function toIngredientList(ingredients: Ingredients): IngredientList {
   return isIngredientList(ingredients)
     ? ingredients
-    : Object.values(ingredients);
+    : Object.keys(ingredients).map((k: string) => ingredients[k]);
 }
 
 export function buildIngredientMap(
