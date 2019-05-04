@@ -1,0 +1,77 @@
+input RecipeInput {
+  ingredients: [String!]!
+  instructions: [String!]!
+}
+
+type Noun {
+  singular: String!
+  plural: String!
+}
+
+input NounInput {
+  singular: String!
+  plural: String!
+}
+
+type Unit {
+  name: Noun!
+  symbol: String!
+}
+
+type Measurement {
+  amount: Int!
+  unit: Unit!
+}
+
+type Substance {
+  id: String!
+  name: Noun!
+}
+
+input SubstanceInput {
+  name: NounInput!
+}
+
+type Ingredient {
+  substance: Substance!
+  measurement: Measurement!
+}
+
+type ParsedIngredient {
+  id: String!
+  original: String!
+  ingredient: Ingredient
+}
+
+type ParsedInstruction {
+  id: String!
+  original: String!
+}
+
+type ParsedRecipe {
+  id: String!
+  ingredients: [ParsedIngredient!]!
+  instructions: [ParsedInstruction!]!
+}
+
+input MeasurementInput {
+  amount: Int!
+  unitSymbol: String! # This should be its own type?
+}
+
+input IngredientCorrectionInput {
+  parsedIngredientId: String!
+  measurement: MeasurementInput!
+  substanceId: String!
+}
+
+input RecipeCorrectionInput {
+  recipeId: String!
+  ingredientCorrections: [IngredientCorrectionInput]
+}
+
+type Mutation {
+  parseRecipe(input: RecipeInput!): ParsedRecipe!
+  correctIngredients(input: RecipeCorrectionInput!): ParsedRecipe!
+  addSubstance(input: SubstanceInput!): Substance!
+}
