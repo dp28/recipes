@@ -1,58 +1,27 @@
-const {
-  graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLNonNull
-} = require("graphql");
+const { ApolloServer, gql } = require("apollo-server-lambda");
 
-const lambdaPlayground = require("graphql-playground-middleware-lambda")
-  .default;
+const STAGE = process.env.DEPLOYMENT_STAGE || "dev";
 
-const getGreeting = firstName => `Hello, ${firstName}.`;
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: "RootQueryType",
-    fields: {
-      greeting: {
-        args: {
-          firstName: {
-            name: "firstName",
-            type: new GraphQLNonNull(GraphQLString)
-          }
-        },
-        type: GraphQLString,
-        resolve: (parent, args) => getGreeting(args.firstName)
-      }
-    }
-  })
-});
-
-// We want to make a GET request with ?query=<graphql query>
-// The event properties are specific to AWS. Other providers will differ.
-module.exports.graphqlHandler = async (event, context, callback) => {
-  const rootValue = {};
-  const contextValue = {};
-  try {
-    const body = JSON.parse(event.body);
-    console.debug(body);
-    const result = await graphql(
-      schema,
-      body.query,
-      rootValue,
-      contextValue,
-      body.variables,
-      body.operationName
-    );
-    console.debug(result);
-    callback(null, { statusCode: 200, body: JSON.stringify(result) });
-  } catch (error) {
-    console.error(error);
-    callback(error);
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => "Hello world!"
   }
 };
 
-module.exports.playgroundHandler = lambdaPlayground({
-  endpoint: "/dev/graphql"
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: {
+    endpoint: `/${STAGE}/graphql`
+  }
 });
+
+exports.graphqlHandler = server.createHandler();
