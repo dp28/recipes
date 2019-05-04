@@ -1,0 +1,3 @@
+projects:
+  recipes-graphql:
+    schemaPath: schema.graphql
